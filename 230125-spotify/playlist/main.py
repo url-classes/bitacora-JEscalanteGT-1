@@ -40,6 +40,27 @@ while True:
                 playlist_uri = get_playlist_response['uri']
                 print('Playlist ID:', playlist_id)
                 print('Playlist URI:', playlist_uri)
+
+                endpoint = 'https://api.spotify.com/v1/search'
+                search_response = requests.get(
+                    endpoint,
+                    headers=user_headers,
+                    params={
+                        'q': 'Bad bunny',
+                        'type': 'album,track',
+                        'limit': 5,
+                        'include_external': 'audio'
+                    }
+                ).json()
+                print('Resultados de la búsqueda:')
+                tracks = search_response['tracks']['items']
+                # duration_ms
+                # ID
+                # name
+                canciones = []
+                for track in tracks:
+                    print(track['id'])
+                    print(track['name'])
             else:
                 endpoint = f'https://api.spotify.com/v1/users/{user_id}/playlists'
                 body = {
